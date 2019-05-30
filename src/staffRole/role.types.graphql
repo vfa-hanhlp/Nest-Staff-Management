@@ -1,0 +1,15 @@
+scalar MongoObjectId
+type Mutation {
+	addRole(name: String!): Role
+	deleteRole(id:String):Role,
+    editRole(id:String):Role,
+}
+type Role {
+	_id: MongoObjectId!
+	name:String
+}
+
+type Query {
+
+	getAllRoles: [Role]
+}

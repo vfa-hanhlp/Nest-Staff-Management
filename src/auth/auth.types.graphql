@@ -1,0 +1,43 @@
+scalar MongoObjectId
+type LoginResult {
+    user: User!
+	token: String
+
+	token_type: String
+
+	expires_in: String
+}
+type User {
+	_id: MongoObjectId!
+	name:String
+	password:String
+	permissions: [String!]!
+	email:String
+	url:String
+	avatar:String
+	screenName:String
+}
+
+
+input login {
+  name: String,
+  password: String,
+  email:String
+}
+input LoginUserInput {
+  name: String,
+  password: String!,
+  email:String
+}
+
+type Mutation{
+	addAdminPermission(username: String!): User
+	registered(login:login):User,
+}
+
+
+type Query {
+
+	login(User: LoginUserInput ): LoginResult
+}
+scalar JSON
