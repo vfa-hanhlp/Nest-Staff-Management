@@ -1,0 +1,5 @@
+scalar MongoObjectId
+
+type Query {
+	getAllUsers: [User]
+}

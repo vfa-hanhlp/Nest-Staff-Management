@@ -23,10 +23,10 @@ export class User {
 
   @Exclude()
   @IsNotEmpty({ message: 'Can not null' })
-  @Column({ nullable: true, length: 60 })
+  @Column({ nullable: true, length: 60})
   public password?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: 'member' })
   public permissions?: [string];
 
   @Column({ length: 200})
@@ -44,7 +44,7 @@ export class User {
   @UpdateDateColumn({ type: 'timestamp' })
   public updatedAt: Date;
 
-  // TODO: 
+  // TODO:
   // LastloginIp: string;
   // LastLoginTime: string;
 
