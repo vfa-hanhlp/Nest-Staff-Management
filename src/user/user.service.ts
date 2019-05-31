@@ -25,4 +25,8 @@ export class UsersService {
     }
     return usersReturn;
   }
+
+  public async getOneUser(userId: string): Promise<User> {
+    return this.userRepository.findOne(userId);
+  }
 }

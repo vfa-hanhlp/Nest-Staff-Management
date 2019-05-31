@@ -26,7 +26,7 @@ export class User {
   @Column({ nullable: true, length: 60})
   public password?: string;
 
-  @Column({ nullable: true, default: 'member' })
+  @Column({ nullable: true })
   public permissions?: [string];
 
   @Column({ length: 200})
