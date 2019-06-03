@@ -35,9 +35,23 @@ export class UsersService {
    * @memberof UsersService
    */
   public async getOneUser(userId: string): Promise<User> {
-    return await this.userRepository.findOne(userId);
+    let userReturn: User | undefined;
+    try {
+      userReturn =  await this.userRepository.findOne(userId);
+    } catch (error) {
+      throw(error);
+    }
+    return userReturn;
   }
 
+  /**
+   * @description update user
+   * @author TrongVN
+   * @date 2019-06-03
+   * @param {*} data
+   * @returns {Promise<User>}
+   * @memberof UsersService
+   */
   public async updateUser(data: any): Promise<User> {
     let userReturn: User | undefined;
     const { _id, email, name }: any = data.input;
@@ -52,5 +66,30 @@ export class UsersService {
       throw(error);
     }
     return userReturn;
+  }
+
+  /**
+   * @description delete user by userId
+   * @author NamTS
+   * @date 2019-06-03
+   * @param {string} userId
+   * @returns {Promise<object>}
+   * @memberof UsersService
+   */
+  public async deleteUser(userId: string): Promise<object> {
+    try {
+      const userReturn: User | undefined = await this.userRepository.findOne(userId);
+      await this.userRepository.remove(userReturn);
+    } catch (error) {
+      const {message} = error;
+      return {
+        requestResolved: false,
+        error: message,
+      };
+    }
+    return {
+      requestResolved: true,
+      error: null,
+    };
   }
 }

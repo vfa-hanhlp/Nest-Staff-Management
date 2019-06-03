@@ -2,11 +2,17 @@ scalar MongoObjectId
 
 type Query {
 	getAllUsers: [User]
-	getUserById(userId: MongoObjectId): User
+	getUserById (userId: MongoObjectId): User
 }
 
 type Mutation {
   updateUser (input: inputUpdateUser): User
+  deleteUser (userId: MongoObjectId): ResponseResult
+}
+
+type ResponseResult {
+  requestResolved: Boolean!
+  error: String
 }
 
 input inputUpdateUser {

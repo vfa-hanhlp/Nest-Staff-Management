@@ -52,4 +52,17 @@ export class UserResolver {
   public async updateUser(@Args() data: any): Promise<User> {
     return await this.userService.updateUser(data);
   }
+
+  /**
+   * @description call deleteUser Service
+   * @author NamTS
+   * @date 2019-06-03
+   * @param {string} userId
+   * @returns {Promise<object>}
+   * @memberof UserResolver
+   */
+  @Mutation('deleteUser')
+  public async deleteUser(@Args('userId') userId: string): Promise<object> {
+    return await this.userService.deleteUser(userId);
+  }
 }
