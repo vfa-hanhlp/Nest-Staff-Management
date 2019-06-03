@@ -3,6 +3,7 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { UsersService } from './user.service';
 import { User } from './user.entity';
 import { JwtAuthGuard } from '../shared/guards/auth.guard';
+import { AdminGuard } from 'src/shared/guards/admin.guard';
 
 @Resolver('Auth')
 export class UserResolver {
@@ -49,7 +50,22 @@ export class UserResolver {
    * @memberof UserResolver
    */
   @Mutation('updateUser')
+  @UseGuards(JwtAuthGuard)
   public async updateUser(@Args() data: any): Promise<User> {
     return await this.userService.updateUser(data);
+  }
+
+  /**
+   * @description call deleteUser Service
+   * @author NamTS
+   * @date 2019-06-03
+   * @param {string} userId
+   * @returns {Promise<object>}
+   * @memberof UserResolver
+   */
+  @Mutation('deleteUser')
+  @UseGuards(JwtAuthGuard, AdminGuard)
+  public async deleteUser(@Args('userId') userId: string): Promise<object> {
+    return await this.userService.deleteUser(userId);
   }
 }
