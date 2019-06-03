@@ -24,12 +24,12 @@ export class AuthResolver {
    */
   @Query()
   public async login(@Args() login: User): Promise<object> {
-     return await this.authService.login(login);
+    return await this.authService.login(login);
   }
   @Mutation('registered')
   public async registered(@Args('login') data: any): Promise<any> {
     try {
-    return await this.authService.registered(data);
+      return await this.authService.registered(data);
     } catch ( error) {
       throw error;
     }
@@ -37,7 +37,7 @@ export class AuthResolver {
   @Mutation('addAdminPermission')
   public async regisaddAdminPermissiontered(@Args('') data: any): Promise<any> {
     try {
-    return await this.authService.addPermission('admin', data.username);
+      return await this.authService.addPermission('admin', data.username);
     } catch ( error) {
       throw error;
     }

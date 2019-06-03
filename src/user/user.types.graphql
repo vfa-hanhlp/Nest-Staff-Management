@@ -4,3 +4,13 @@ type Query {
 	getAllUsers: [User]
 	getUserById(userId: MongoObjectId): User
 }
+
+type Mutation {
+  updateUser (input: inputUpdateUser): User
+}
+
+input inputUpdateUser {
+  _id: String
+  name: String
+  email: String
+}

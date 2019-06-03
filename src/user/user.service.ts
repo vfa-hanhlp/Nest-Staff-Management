@@ -37,4 +37,20 @@ export class UsersService {
   public async getOneUser(userId: string): Promise<User> {
     return await this.userRepository.findOne(userId);
   }
+
+  public async updateUser(data: any): Promise<User> {
+    let userReturn: User | undefined;
+    const { _id, email, name }: any = data.input;
+    const newData: any = {
+      email,
+      name,
+    };
+    try {
+      await this.userRepository.update(_id, newData);
+      userReturn = await this.userRepository.findOne(_id);
+    } catch (error) {
+      throw(error);
+    }
+    return userReturn;
+  }
 }
