@@ -26,7 +26,15 @@ export class UsersService {
     return usersReturn;
   }
 
+  /**
+   * @description get one user by userId
+   * @author NamTS
+   * @date 2019-06-03
+   * @param {string} userId
+   * @returns {Promise<User>}
+   * @memberof UsersService
+   */
   public async getOneUser(userId: string): Promise<User> {
-    return this.userRepository.findOne(userId);
+    return await this.userRepository.findOne(userId);
   }
 }
