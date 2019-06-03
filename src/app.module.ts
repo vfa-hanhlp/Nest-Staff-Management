@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { RoleModule } from './staffRole/role.module';
 import {AuthService} from './auth/auth.service';
+import { DeviceService } from './device/device.service';
+import { DeviceModule } from './device/device.module';
 import * as GraphQLJSON from 'graphql-type-json';
 @Module({
   imports: [
@@ -27,9 +29,10 @@ import * as GraphQLJSON from 'graphql-type-json';
     AuthModule,
     UserModule,
     RoleModule,
+    DeviceModule,
   ],
   controllers: [],
-  providers: [AuthService],
+  providers: [AuthService, DeviceService],
 })
 export class AppModule implements OnModuleInit {
   async onModuleInit() {
