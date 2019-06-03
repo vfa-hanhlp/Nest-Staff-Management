@@ -23,7 +23,7 @@ export class User {
 
   @Exclude()
   @IsNotEmpty({ message: 'Can not null' })
-  @Column({ nullable: true, length: 60 })
+  @Column({ nullable: true, length: 60})
   public password?: string;
 
   @Column({ nullable: true })

@@ -75,6 +75,7 @@ export class AuthService {
   public async registered(data: User): Promise<User> {
     data.password = await this.getHash(data.password);
     let userReturn: User | undefined;
+    data.permissions = ['member']; // default user permission
     try {
     userReturn = await this.userRepository.save(this.userRepository.create(data));
     } catch (error) {

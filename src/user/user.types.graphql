@@ -1,5 +1,8 @@
+scalar MongoObjectId
+
 type Query {
 	getAllUsers: [User]
+	getUserById(userId: MongoObjectId): User
 }
 
 type Mutation {
