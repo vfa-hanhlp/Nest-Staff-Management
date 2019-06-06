@@ -94,17 +94,60 @@ export class TeamService {
         };
     }
 
+    /**
+     * @description add new member to team
+     * @author NamTS
+     * @date 2019-06-06
+     * @param {*} input
+     * @returns {Promise<TeamEntity>}
+     * @memberof TeamService
+     */
     public async addMemberToTeam(input: any): Promise<TeamEntity> {
         const {teamId, memberId} = input;
         let teamReturn: TeamEntity | undefined;
         try {
             const member: User | undefined = await this.userRepository.findOne(memberId);
             teamReturn = await this.teamRepository.findOne(teamId);
+
             if (!teamReturn.teamMember) {
                 teamReturn.teamMember = [member];
             } else {
-                teamReturn.teamMember.push(member);
+                // tslint:disable-next-line: prefer-const
+                let checkMemberExist = false;
+                teamReturn.teamMember.map(mem => {
+                // tslint:disable-next-line: no-unused-expression
+                    mem._id === member._id && (checkMemberExist = true);
+                });
+                if (checkMemberExist) {
+                    throw new Error ('This member already existed!');
+                } else {
+                    teamReturn.teamMember.push(member);
+                }
             }
+            await this.teamRepository.save(teamReturn);
+        } catch (error) {
+            throw (error);
+        }
+        return teamReturn;
+    }
+
+    /**
+     * @description remove the member out of team
+     * @author NamTS
+     * @date 2019-06-06
+     * @param {*} input
+     * @returns {Promise<TeamEntity>}
+     * @memberof TeamService
+     */
+    public async removeMemberOutOfTeam(input: any): Promise<TeamEntity> {
+        const {teamId, memberId} = input;
+        let teamReturn: TeamEntity | undefined;
+        try {
+            teamReturn = await this.teamRepository.findOne(teamId);
+            teamReturn.teamMember.map((mem: User, index: number) => {
+            // tslint:disable-next-line: no-unused-expression
+                mem._id === memberId && (teamReturn.teamMember.splice(index, 1));
+            });
             await this.teamRepository.save(teamReturn);
         } catch (error) {
             throw (error);

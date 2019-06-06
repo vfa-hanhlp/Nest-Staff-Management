@@ -1,4 +1,3 @@
-scalar MongoObjectId
 type LoginResult {
     user: User!
 	token: String
@@ -8,7 +7,7 @@ type LoginResult {
 	expires_in: String
 }
 type User {
-	_id: MongoObjectId!
+	_id: String!
 	name:String
 	password:String
 	permissions: String

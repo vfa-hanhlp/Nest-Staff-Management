@@ -72,9 +72,31 @@ export class TeamResolver {
         return this.teamService.deleteTeamById(id);
     }
 
+    /**
+     * @description call Service add member to team
+     * @author NamTS
+     * @date 2019-06-06
+     * @param {*} input
+     * @returns {Promise<TeamEntity>}
+     * @memberof TeamResolver
+     */
     @Mutation('addMember')
     @UseGuards(JwtAuthGuard, AdminGuard)
     public async addMemberToTeam(@Args() input: any): Promise<TeamEntity> {
         return this.teamService.addMemberToTeam(input);
+    }
+
+    /**
+     * @description call Service to remove the member out of team
+     * @author NamTS
+     * @date 2019-06-06
+     * @param {*} input
+     * @returns {Promise<TeamEntity>}
+     * @memberof TeamResolver
+     */
+    @Mutation('removeMember')
+    @UseGuards(JwtAuthGuard, AdminGuard)
+    public async removeMemberOutOfTeam(@Args() input: any): Promise<TeamEntity> {
+        return this.teamService.removeMemberOutOfTeam(input);
     }
 }

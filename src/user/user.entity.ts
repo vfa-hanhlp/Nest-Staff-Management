@@ -7,6 +7,7 @@ import {
   Index,
   ManyToOne,
   PrimaryGeneratedColumn,
+  ManyToMany,
 } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Exclude } from 'class-transformer';
@@ -14,10 +15,9 @@ import { TeamEntity } from 'src/team/team.entity';
 
 @Entity()
 export class User {
-  // @ObjectIdColumn()
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   // tslint:disable-next-line:variable-name
-  public _id: number;
+  public _id: string;
 
   @IsNotEmpty({ message: 'Can not null' })
   @Column({length: 32 })
@@ -49,9 +49,6 @@ export class User {
 
   @VersionColumn({ name: 'data_version' })
   public dataVersion: number;
-
-  @ManyToOne(type => TeamEntity, team => team.teamMember)
-  team: TeamEntity;
 
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);

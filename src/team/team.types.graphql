@@ -1,11 +1,11 @@
-scalar MongoObjectId
 scalar DateTime
 
 type Mutation {
   registerNewTeam (input: TeamData!): TeamInfo
-  updateTeam (teamId: MongoObjectId!, updateData: TeamData!): TeamInfo
-  deleteTeam (teamId: MongoObjectId!): ResponseResult
-  addMember (teamId: MongoObjectId!, memberId: MongoObjectId!): TeamInfo
+  updateTeam (teamId: String!, updateData: TeamData!): TeamInfo
+  deleteTeam (teamId: String!): ResponseResult
+  addMember (teamId: String!, memberId: String!): TeamInfo
+  removeMember (teamId: String!, memberId: String!): TeamInfo
 }
 
 type Query {
@@ -13,7 +13,7 @@ type Query {
 }
 
 type TeamInfo {
-  _id: MongoObjectId
+  _id: String
   teamName: String!
   teamMember: [User]
   customer: String

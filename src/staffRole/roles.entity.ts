@@ -8,14 +8,12 @@ import {
     PrimaryGeneratedColumn,
   } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
-import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Roles {
-// @ObjectIdColumn()
-@PrimaryGeneratedColumn()
+@PrimaryGeneratedColumn('uuid')
 // tslint:disable-next-line:variable-name
-public _id: number;
+public _id: string;
 
 @IsNotEmpty({ message: 'Can not null' })
 @Column({length: 32 })

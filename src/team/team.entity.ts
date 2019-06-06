@@ -6,6 +6,8 @@ import {
   Index,
   OneToMany,
   PrimaryGeneratedColumn,
+  JoinTable,
+  ManyToMany,
 } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { User } from 'src/user/user.entity';
@@ -19,10 +21,9 @@ export interface TeamInput {
 
 @Entity('team')
 export class TeamEntity {
-  // @ObjectIdColumn()
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   // tslint:disable-next-line:variable-name
-  public _id: number;
+  public _id: string;
 
   @IsNotEmpty({ message: 'Can not null' })
   @Column({length: 200 })
@@ -44,7 +45,8 @@ export class TeamEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   public updatedAt: Date;
 
-  @OneToMany(type => User, user => user.team)
+  @ManyToMany(type => User, {eager: true})
+  @JoinTable()
   public teamMember: [User];
 
   constructor(partial: Partial<TeamEntity>) {
