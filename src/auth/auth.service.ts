@@ -75,7 +75,7 @@ export class AuthService {
   public async registered(data: User): Promise<User> {
     data.password = await this.getHash(data.password);
     let userReturn: User | undefined;
-    data.permissions = ['member']; // default user permission
+    data.permissions = 'member'; // default user permission
     try {
     userReturn = await this.userRepository.save(this.userRepository.create(data));
     } catch (error) {
@@ -84,18 +84,14 @@ export class AuthService {
     }
     return userReturn;
   }
+
   public  async addPermission(
     permission: string,
     username: string,
   ): Promise<User| undefined> {
-    const user = await this.userRepository.findOne({ name: username});
+    const user = await this.userRepository.findOne({name: username});
     if (!user) { return undefined; }
-    if (!user.permissions) {
-      user.permissions = [permission];
-    } else {
-    if (user.permissions.includes(permission)) { return user; }
-    user.permissions.push(permission);
-    }
+    user.permissions = permission;
     return await this.userRepository.save(user);
   }
   /**

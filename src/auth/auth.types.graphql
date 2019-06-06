@@ -11,7 +11,7 @@ type User {
 	_id: MongoObjectId!
 	name:String
 	password:String
-	permissions: [String!]!
+	permissions: String
 	email:String
 	url:String
 	avatar:String

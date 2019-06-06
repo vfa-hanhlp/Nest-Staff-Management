@@ -1,0 +1,31 @@
+scalar MongoObjectId
+scalar DateTime
+
+type Mutation {
+  registerNewTeam (input: TeamData!): TeamInfo
+  updateTeam (teamId: MongoObjectId!, updateData: TeamData!): TeamInfo
+  deleteTeam (teamId: MongoObjectId!): ResponseResult
+  addMember (teamId: MongoObjectId!, memberId: MongoObjectId!): TeamInfo
+}
+
+type Query {
+  teamList: [TeamInfo]
+}
+
+type TeamInfo {
+  _id: MongoObjectId
+  teamName: String!
+  teamMember: [User]
+  customer: String
+  project: String
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input TeamData {
+  teamName: String!
+  customer: String
+  project: String
+  description: String
+}
