@@ -1,20 +1,23 @@
 import {
   Entity,
   Column,
-  ObjectIdColumn,
   CreateDateColumn,
   UpdateDateColumn,
   VersionColumn,
   Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  ManyToMany,
 } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Exclude } from 'class-transformer';
+import { TeamEntity } from 'src/team/team.entity';
 
 @Entity()
 export class User {
-  @ObjectIdColumn()
+  @PrimaryGeneratedColumn('uuid')
   // tslint:disable-next-line:variable-name
-  public _id: number;
+  public _id: string;
 
   @IsNotEmpty({ message: 'Can not null' })
   @Column({length: 32 })
@@ -27,7 +30,7 @@ export class User {
   public password?: string;
 
   @Column({ nullable: true })
-  public permissions?: [string];
+  public permissions?: string;
 
   @Column({ length: 200})
   public email?: string;
@@ -44,21 +47,9 @@ export class User {
   @UpdateDateColumn({ type: 'timestamp' })
   public updatedAt: Date;
 
-  // TODO:
-  // LastloginIp: string;
-  // LastLoginTime: string;
-
   @VersionColumn({ name: 'data_version' })
   public dataVersion: number;
 
-  // @BeforeInsert()
-  // public async hash() {
-  //   this.password = bcrypt.hash(this.password, 10)
-  // }
-
-  // public async verification(attempt: string): Promise<boolean> {
-  //   return bcrypt.compare(attempt, this.password);
-  // }
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);
   }

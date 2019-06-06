@@ -1,8 +1,10 @@
 {
-	"type": "mongodb",
+	"type": "mysql",
 	"host": "localhost",
-	"port": 27017,
+	"port": "3306",
 	"database": "user-auth",
+	"username": "root",
+	"password": "root",
 	"synchronize": true,
 	"entities": [
 		"src/**/**/**.entity{.ts,.js}"

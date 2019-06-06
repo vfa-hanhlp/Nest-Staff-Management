@@ -1,0 +1,31 @@
+scalar DateTime
+
+type Mutation {
+  registerNewTeam (input: TeamData!): TeamInfo
+  updateTeam (teamId: String!, updateData: TeamData!): TeamInfo
+  deleteTeam (teamId: String!): ResponseResult
+  addMember (teamId: String!, memberId: String!): TeamInfo
+  removeMember (teamId: String!, memberId: String!): TeamInfo
+}
+
+type Query {
+  teamList: [TeamInfo]
+}
+
+type TeamInfo {
+  _id: String
+  teamName: String!
+  teamMember: [User]
+  customer: String
+  project: String
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input TeamData {
+  teamName: String!
+  customer: String
+  project: String
+  description: String
+}

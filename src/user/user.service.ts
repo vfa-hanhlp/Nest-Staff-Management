@@ -5,7 +5,7 @@ import { User } from './user.entity';
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
-  isAdmin(permissions: string[]): boolean {
+  isAdmin(permissions: string): boolean {
     return permissions.includes('admin');
   }
 

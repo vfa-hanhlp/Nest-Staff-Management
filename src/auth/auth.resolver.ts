@@ -35,7 +35,7 @@ export class AuthResolver {
     }
   }
   @Mutation('addAdminPermission')
-  public async regisaddAdminPermissiontered(@Args('') data: any): Promise<any> {
+  public async regisaddAdminPermissiontered(@Args() data: any): Promise<any> {
     try {
       return await this.authService.addPermission('admin', data.username);
     } catch ( error) {

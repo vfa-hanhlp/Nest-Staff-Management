@@ -1,11 +1,10 @@
-scalar MongoObjectId
 type Mutation {
 	addRole(name: String!): Role
 	deleteRole(id:String):Role,
     editRole(id:String):Role,
 }
 type Role {
-	_id: MongoObjectId!
+	_id: String!
 	name:String
 }
 

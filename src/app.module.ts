@@ -8,6 +8,7 @@ import { RoleModule } from './staffRole/role.module';
 import {AuthService} from './auth/auth.service';
 import { DeviceService } from './device/device.service';
 import { DeviceModule } from './device/device.module';
+import { TeamModule } from './team/team.module';
 import * as GraphQLJSON from 'graphql-type-json';
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import * as GraphQLJSON from 'graphql-type-json';
     UserModule,
     RoleModule,
     DeviceModule,
+    TeamModule,
   ],
   controllers: [],
   providers: [AuthService, DeviceService],
