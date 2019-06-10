@@ -38,7 +38,9 @@ export class TeamService {
     public async createNewTeam(data: TeamInput): Promise<TeamEntity> {
         let teamReturn: TeamEntity| undefined;
         try {
-            teamReturn = await this.teamRepository.save(this.teamRepository.create(data));
+            await this.teamRepository.manager.transaction(async tx => {
+                teamReturn = await tx.save(this.teamRepository.create(data));
+            });
         } catch (error) {
             throw(error);
         }
@@ -50,20 +52,22 @@ export class TeamService {
      * @author NamTS
      * @date 2019-06-04
      * @param {string} teamId
-     * @param {TeamInput} data
+     * @param {TeamInput} updateData
      * @returns {Promise<TeamEntity>}
      * @memberof TeamService
      */
     public async updateTeam(input: any): Promise<TeamEntity> {
-        const { teamId, data } = input;
+        const { teamId, updateData } = input;
         let teamReturn: TeamEntity | undefined;
         try {
             teamReturn = await this.teamRepository.findOne(teamId);
-            teamReturn.teamName = data.teamName;
-            teamReturn.customer = data.customer;
-            teamReturn.project = data.project;
-            teamReturn.description = data.description;
-            await this.teamRepository.update(teamId, teamReturn);
+            teamReturn.teamName = updateData.teamName;
+            teamReturn.customer = updateData.customer;
+            teamReturn.project = updateData.project;
+            teamReturn.description = updateData.description;
+            await this.teamRepository.manager.transaction(async tx => {
+                await tx.update(TeamEntity, teamId, teamReturn);
+            });
         } catch (error) {
             throw (error);
         }
@@ -80,7 +84,10 @@ export class TeamService {
      */
     public async deleteTeamById(teamId: string): Promise<object> {
         try {
-            await this.teamRepository.delete(teamId);
+            await this.teamRepository.manager.transaction(async tx => {
+                await tx.delete(TeamEntity, teamId);
+            });
+            // await this.teamRepository.delete(teamId);
         } catch (error) {
             const {message} = error;
             return {
@@ -124,7 +131,9 @@ export class TeamService {
                     teamReturn.teamMember.push(member);
                 }
             }
-            await this.teamRepository.save(teamReturn);
+            await this.teamRepository.manager.transaction(async tx => {
+                await tx.save(teamReturn);
+            });
         } catch (error) {
             throw (error);
         }
@@ -148,7 +157,9 @@ export class TeamService {
             // tslint:disable-next-line: no-unused-expression
                 mem._id === memberId && (teamReturn.teamMember.splice(index, 1));
             });
-            await this.teamRepository.save(teamReturn);
+            await this.teamRepository.manager.transaction(async tx => {
+                await tx.save(teamReturn);
+            });
         } catch (error) {
             throw (error);
         }
