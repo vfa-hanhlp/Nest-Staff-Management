@@ -1,8 +1,8 @@
 {
 	"type": "mysql",
-	"host": "localhost",
+	"host": "db",
 	"port": "3306",
-	"database": "user-auth",
+	"database": "food_connection",
 	"username": "root",
 	"password": "root",
 	"synchronize": true,
